@@ -1,0 +1,108 @@
+---
+title: "EDA report"
+author: "Donald Duck"
+date: "19/7/2900"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+
+
+
+
+
+
+
+
+
+```{r setup, echo=FALSE}
+library(rio)
+library(tidyverse)
+library(energy)
+library(mice)
+library(knitr)
+library(DT)
+load("portfolio_data_clean.RData")
+load("portfolio_raw_data.RData")
+```
+
+## Objectives of the analyses
+
+Reported below are the objectives and result of Exploratory Data Analysis performed on internal portfolio data. the analysis was performed as a preliminary step to subsequent modeling activities.
+the report is structured into the following main parts:
+
+- description of data treatments applied to the raw portfolio data
+- description of each analysis performed and the obtained results
+- final conclusions obtained from the performed analyses
+
+## data treatments applied
+
+To gain a sufficient level of confidence on the soundess of accuracy of employed data, data quality checks were performed on the raw dataset obtained from legacy systems. data quality checks were performed to verify:
+
+- presence of anomalous values
+- presence of incoherent data
+- presence of outliers
+
+mentioned analyses showed the presence of both outliers and incoherent values.
+smell test activities were also performed to understand reasons of the observed data quality deficiencies.
+as a result of performed data quality assessments, the following treatments were applied:
+
+- removal of *strategic address* attribute, showing an 88 records with missing values, equal to the `r round(88/nrow(portfolio_data_comple_cens),2)*100`% of total records
+- censoring of *PD* attribute, showing two records with PD values higher than 1
+- imputation of missing values on the *LGD* attribute, which showed a `r portfolio_raw_data %>% filter(is.na(LGD)) %>% nrow()` missing values
+- introduction of a interquartilic range treatment on the *defaulted_obligors* attribute, to change outliers values to the value of lower and upper bound following the Tukey's rule for outliers identification.
+
+```{r}
+datatable(portfolio_data_comple_cens)
+```
+
+Following the introduction of described treatments, the final dataset employed for the analyses resulted composed of `r portfolio_data_comple_cens %>% ncol()` attributes and `r portfolio_data_comple_cens %>% nrow()` records.
+
+
+
+## performed analyses
+
+described below are the rationales and result of the analyses performed on data obtained from the applied data treatments.
+
+### average values
+
+as a first step some summary statistics were calculated. this preliminary analysis was performed to evaluate the general level of coherence within the observed data and also considering previous knowledge of involved portfolios. it was for instance computed the average value of probability of default and loss given default by any given portfolio. this was compared with the expected level of riskiness represented by each of the involved portfolios.
+Reproduced below is a table showing average values of PD and LGD by portfolio. 
+
+```{r}
+portfolio_data_comple_cens %>% 
+  group_by(Portfolio) %>% 
+  summarise(mean_LGD = mean(LGD), mean_PD = mean(PD)) %>% kable()
+```
+
+A general positive evaluation was obtained from the analyses, since level of PD and LGD appeared aligned with what expected.
+
+### linear correlation
+
+pearson coefficients were calculated among each numerical variable. results are reproduced below:
+
+```{r}
+
+portfolio_data_comple_cens %>% 
+  select(non_defaulted_obligors,
+         defaulted_obligors,
+         exposure_defaulted,
+         exposure_non_defaulted,
+         PD,
+         LGD) -> numeric_portfolio
+cor(numeric_portfolio,method ="pearson") %>% kable()
+
+```
+
+also here a general coherence was observed.
+
+## conclusions
+
+following analyses reported above, the following relevant conclusions was obtained:
+
+- that the quality of our data resulted being not satisfactory for some of the attributes and that this should be further investigated for subsequent uses of this dataset
+- that with the data we have is possibile to fit linear regression models since we have verified the assumption related to both sample adequacy and residuals. 
+
+we can therefore conlcude that the performed analyses allowed to reach the objectives that were stated within the *objectives of the analyses* paragraph.
