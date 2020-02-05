@@ -16,15 +16,12 @@ By the end of the course, you will be able to quickly get know and interpret var
 <LI>Implement data cleaning and validation tasks to get your data ready for data mining activities
 <LI>Test a hypothesis or check assumptions related to a specific model
 <LI>Estimate parameters and figure the margins of error 
-<LI> </LI></UL></DIV>
+</LI></UL></DIV>
 
 ## Instructions and Navigation
 ### Assumed Knowledge
 This course is for those seeking to enhance their data analysis skills by harnessing the benefits of R. Basic knowledge of R and R Studio, together with some knowledge of descriptive statistics, are key to getting the best out of this course.
 You will need to have a computer running with a working install of Rust
-
-Minimum Hardware Requirements
-This course is for those seeking to enhance their data analysis skills by harnessing the benefits of R. Basic knowledge of R and R Studio, together with some knowledge of descriptive statistics, are key to getting the best out of this course.
 
 ## Related Products
 * [R Data Analysis Projects [Video]](https://www.packtpub.com/big-data-and-business-intelligence/r-data-analysis-projects-video)
