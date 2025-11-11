@@ -1,3 +1,5 @@
+<p align='center'><a href='https://www.eventbrite.com/e/algorithmic-trading-with-python-cohort-2-tickets-1833367644979?aff=oddtdtcreator'><img src='https://static.packt-cdn.com/assets/images/packt+events/Python_for_Algorithmic Trading_v1.png'/></a></p>
+
 # Exploratory-Data-Analysis-with-R[Video]
 This is the code repository for [Exploratory Data Analysis with R[Video]](https://www.packtpub.com/data/exploratory-data-analysis-with-r-video). It contains all the supporting project files necessary to work through the video course from start to finish.
 ## About the Video Course
